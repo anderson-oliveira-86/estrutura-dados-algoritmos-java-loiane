@@ -13,8 +13,8 @@ public class Lista<T> {
         this.tamanho = 0;
     }
 
-    public Lista(int capacidade , Class<T> tipoClasse) {
-        this.elementos = (T[]) Array.newInstance(tipoClasse , capacidade); // .reflect
+    public Lista(int capacidade, Class<T> tipoClasse) {
+        this.elementos = (T[]) Array.newInstance(tipoClasse, capacidade); // .reflect
         this.tamanho = 0;
     }
 
@@ -48,20 +48,22 @@ public class Lista<T> {
 
     private void aumentaCapacidade() {
         if (this.tamanho == this.elementos.length) {
-            T[] elementosNovos = (T[]) new Object [this.elementos.length * 2];
+            T[] elementosNovos = (T[]) new Object[this.elementos.length * 2];
             for (int i = 0; i < this.elementos.length; i++) {
                 elementosNovos[i] = elementos[i];
             }
-            this.elementos =  elementosNovos;
+            this.elementos = elementosNovos;
         }
     }
 
-    public Object busca(int posicao) {
+    public T obtem(int posicao) {
         if (!(posicao >= 0 && posicao < tamanho)) {
             throw new IllegalArgumentException("Posição inválida");
         }
         return this.elementos[posicao];
     }
+
+
 
     public int busca(T elemento) {
         for (int i = 0; i < this.tamanho; i++) {
@@ -72,6 +74,25 @@ public class Lista<T> {
         return -1;
     }
 
+    public boolean contem(T elemento) {
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elementos[i].equals(elemento)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int ultimoIndicedo(T elemento){
+        for (int i = this.tamanho; i > 0 ; i--) {
+            if (elemento.equals(elementos[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
     public void remove(int posicao) {
         if (!(posicao >= 0 && posicao < tamanho)) {
             throw new IllegalArgumentException("Posição inválida");
@@ -80,7 +101,20 @@ public class Lista<T> {
             this.elementos[i] = this.elementos[i + 1];
         }
         this.tamanho--;
+    }
 
+    public void remove(T elemento){
+        int index = this.busca(elemento);
+        if(index > -1){
+            this.remove(index);
+        }
+    }
+
+    public void limpar(){
+        for (int i = 0; i < this.tamanho; i++) {
+            this.elementos[i] = null;
+        }
+        this.tamanho = 0;
     }
 
     public int tamanho() {
@@ -96,7 +130,7 @@ public class Lista<T> {
 
         for (int i = 0; i < this.tamanho - 1; i++) {
             s.append(this.elementos[i]);
-            s.append(", ");
+            s.append(",\n ");
         }
         if (this.tamanho > 0) {
             s.append(this.elementos[this.tamanho - 1]);

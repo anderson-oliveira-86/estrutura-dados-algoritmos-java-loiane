@@ -7,11 +7,15 @@ public class Aula12b {
 
         ArrayList<String> arrayList = new ArrayList<>();
 
+
         arrayList.add("A");
+        arrayList.add("C");
+        arrayList.add("C");
+        arrayList.add("C");
         arrayList.add("C");
         System.out.println(arrayList);
 
-        arrayList.add(1,"B");
+        //arrayList.add(1,"B");
 
         System.out.println(arrayList);
 
@@ -33,6 +37,11 @@ public class Aula12b {
 
         System.out.println(arrayList.get(2));
 
+        int txt = arrayList.indexOf("C");
+        System.out.println("Index Of " + txt);
+
+        txt = arrayList.lastIndexOf("G");
+        System.out.println("Last Index Of " + txt);
 
     }
 }
